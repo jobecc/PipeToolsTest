@@ -14,9 +14,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag goofTest
+      
+      
     - name: Running Open Source Security by Snyk (SCA)
       run: |
           curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.210.0/snyk-linux" 
@@ -28,13 +29,15 @@ jobs:
       run: |
           curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
           horusec start -p .
-    - name: ZAP Scan
-      uses: zaproxy/action-full-scan@v0.3.0
-      with:
-        target: 'https://dvwa.co.uk/'
+      
+      #Targeting dvwa.co.uk
+#    - name: ZAP Scan (DAST)
+#      uses: zaproxy/action-full-scan@v0.3.0
+#      with:
+#        target: 'https://dvwa.co.uk/'
 #testing
 
-    - name: ZAP Scan
+    - name: ZAP Scan (DAST)
       uses: zaproxy/action-full-scan@v0.3.0
       with:
-        target: 'https://dvwa.co.uk/'
+        target: 'https://github.com/snyk/goof'
