@@ -23,7 +23,8 @@ jobs:
           ./snyk monitor
           
     - name: Run Snyk to check for vulnerabilities
-      uses: snyk/actions/node@master
+#      uses: snyk/actions/node@master
+      run: snyk monitor
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}     
         
