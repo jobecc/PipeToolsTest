@@ -14,7 +14,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    - uses: snyk/actions/node@master
+    
     - name: Running Open Source Security by Snyk (SCA)
       run: |
           curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.210.0/snyk-linux" 
