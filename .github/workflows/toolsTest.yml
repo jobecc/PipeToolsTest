@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag goofTest
+      run: docker build . --file Dockerfile --tag gooftest
       
       
     - name: Running Open Source Security by Snyk (SCA)
