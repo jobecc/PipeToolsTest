@@ -35,13 +35,13 @@ jobs:
       with:
         arguments: -c=horusec-config.json
         
-#    - name: Running Horusec Security (SAST)
-#      run: |
-#          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
-#          horusec start -p .
+    - name: Running Horusec Security (SAST)
+      run: |
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+          horusec start -p .
 
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag gooftest
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag gooftest
 
       #Targeting dvwa.co.uk
 #    - name: ZAP Scan (DAST)
