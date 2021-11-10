@@ -1,0 +1,40 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+#    - name: Build the Docker image
+#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+
+    - name: Running Open Source Security by Snyk (SCA)
+      run: |
+          curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.210.0/snyk-linux" 
+          chmod -R +x ./snyk 
+          ./snyk auth ${{ secrets.SNYK_AUTH_TOKEN }} 
+          ./snyk monitor
+          
+    - name: Running Horusec Security (SAST)
+      run: |
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+          horusec start -p .
+    - name: ZAP Scan
+      uses: zaproxy/action-full-scan@v0.3.0
+      with:
+        target: 'https://dvwa.co.uk/'
+#testing
+
+    - name: ZAP Scan
+      uses: zaproxy/action-full-scan@v0.3.0
+      with:
+        target: 'https://dvwa.co.uk/'
