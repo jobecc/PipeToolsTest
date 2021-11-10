@@ -14,7 +14,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: snyk/actions/node@master
     
     - name: Running Open Source Security by Snyk (SCA)
       run: |
@@ -24,10 +23,11 @@ jobs:
           ./snyk monitor
           
     - name: Run Snyk to check for vulnerabilities
-#      uses: snyk/actions/node@master
-      run: snyk test
+      uses: snyk/actions/node@master
       env:
-        SNYK_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}     
+        SNYK_TOKEN: ${{ secrets.SNYK_AUTH_TOKEN }}
+      with: 
+        command: monitor
         
     - name: Running Horusec Security (SAST)
       run: |
