@@ -31,7 +31,7 @@ jobs:
     
     - name: Run Horusec
       id: run_horusec
-      uses: fike/horusec-action@v0.2
+      uses: fike/horusec-action@v0.1
       with:
         arguments: -p="./" --ignore="**/.vscode/**, **/*.env, **/.mypy_cache/**, **/tests/**"
         
