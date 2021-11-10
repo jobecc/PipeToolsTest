@@ -15,12 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Running Open Source Security by Snyk (SCA)
-      run: |
-          curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.210.0/snyk-linux" 
-          chmod -R +x ./snyk 
-          ./snyk auth ${{ secrets.SNYK_AUTH_TOKEN }} 
-          ./snyk monitor
+#    - name: Running Open Source Security by Snyk (SCA)
+#      run: |
+#          curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.210.0/snyk-linux" 
+#          chmod -R +x ./snyk 
+#          ./snyk auth ${{ secrets.SNYK_AUTH_TOKEN }} 
+#          ./snyk monitor
           
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
@@ -32,14 +32,16 @@ jobs:
     - name: Run Horusec
       id: run_horusec
       uses: fike/horusec-action@v0.2
+      with:
+        arguments: -p="./" --ignore="**/.vscode/**, **/*.env, **/.mypy_cache/**, **/tests/**"
         
-    - name: Running Horusec Security (SAST)
-      run: |
-          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
-          horusec start -p .
+#    - name: Running Horusec Security (SAST)
+#      run: |
+#          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/main/deployments/scripts/install.sh | bash -s latest
+#          horusec start -p .
 
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag gooftest
+#    - name: Build the Docker image
+#      run: docker build . --file Dockerfile --tag gooftest
 
       #Targeting dvwa.co.uk
 #    - name: ZAP Scan (DAST)
